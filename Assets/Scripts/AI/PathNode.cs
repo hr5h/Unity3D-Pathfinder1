@@ -41,7 +41,7 @@ public class PathNode //: MonoBehaviour
         parentNode = parent;
         //  Вычисляем расстояние
         if (parent != null)
-            distance = parent.Distance + Vector3.Distance(body.transform.position, parent.body.transform.position);
+            distance = parent.Distance + Dist(parent, this);// Vector3.Distance(body.transform.position, parent.body.transform.position);
         else
             distance = float.PositiveInfinity;
     }
@@ -68,7 +68,7 @@ public class PathNode //: MonoBehaviour
     /// <returns></returns>
     public static float Dist(PathNode a, PathNode b)
     {
-        return Vector3.Distance(a.body.transform.position, b.body.transform.position) + 40 * Mathf.Abs(a.body.transform.position.y - b.body.transform.position.y);
+        return Vector3.Distance(a.body.transform.position, b.body.transform.position);// + 40 * Mathf.Abs(a.body.transform.position.y - b.body.transform.position.y);
     }
     
     /// <summary>
@@ -78,7 +78,12 @@ public class PathNode //: MonoBehaviour
     {
         body.GetComponent<Renderer>().material.color = Color.red;
     }
-    
+
+    public void IlluminateNotWalkable()
+    {
+        body.GetComponent<Renderer>().material.color = Color.yellow;
+    }
+
     /// <summary>
     /// Снять подсветку с вершины - перекрасить в синий
     /// </summary>
